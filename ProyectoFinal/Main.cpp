@@ -2,7 +2,7 @@
 #include <cctype>
 #include "functions.cpp"
 
-int main (){
+int main (){ 
 
     principal();
 

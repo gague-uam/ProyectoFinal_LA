@@ -1,18 +1,28 @@
 #define MAX 100
- 
+#define MAXID 14
 
-
-struct ESTUDENTS{
+ struct ESTUDENTS{
     std::string NAME;
-    int CIF [MAX];
-    int AGE [MAX];
-    std::string CAREER;
-};
+    int CIF;
+    int AGE;
+    std::string CAREER ;
+}persona;
 
-struct REGISTRERS{
-   std::string ID ;
-   std:: string NAME ; 
-};
+ struct REGISTRERS{
+   std::string ID  ;
+   std:: string NAME  ; 
+}persona2;
 
-ESTUDENTS students[10];
+struct MATCHES{
+    std::string DATE;
+    std::string HOUR;
+    std::string LOCAL;
+    std::string VISIT;
+    int LOCALPOINTS;
+    int VISITPOINTS;
+}partido[MAX];
+
+
+
+
 
