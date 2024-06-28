@@ -126,6 +126,35 @@ bool isVisitPointsValid(const std::string &visitPointsStr)
     return true;
 }
 
+void saveCounter()
+{
+    ofstream file("counter.txt");
+    if (file.is_open())
+    {
+        file << contador;
+        file.close();
+    }
+    else
+    {
+        cout << "No se pudo abrir el archivo para guardar el contador." << endl;
+    }
+}
+
+void loadCounter()
+{
+    ifstream file("counter.txt");
+    if (file.is_open())
+    {
+        file >> contador;
+        file.close();
+    }
+    else
+    {
+      
+        contador = 0;
+    }
+}
+
 /*Funciones*/
 int menu()
 {
@@ -141,6 +170,8 @@ int menu()
 
 void principal()
 {
+    loadCounter();
+    loadMatches();
     int opt;
     do
     {
@@ -364,10 +395,10 @@ void showstudentdata()
 void addmatch()
 {
     char choice;
+    
     do
     {
-        cout << "Ingrese la informacion del partido #" << (contador + 1) << ":" << endl;
-
+        cout << "Ingrese la información del partido #" << (contador + 1) << ":" << endl;
         while (true)
         {
             cout << "Fecha (DD/MM/YYYY): ";
@@ -465,44 +496,38 @@ void addmatch()
             }
         }
 
+          partido[contador].ID = contador + 1;
 
-        contador++;
+        contador++; 
 
-        partido[contador].ID = contador;
+        saveMatches(); 
+        saveCounter(); 
 
         cout << "¿Desea ingresar otro partido? (s/n): ";
         cin >> choice;
+        if (choice == 's' || choice == 'S') {
+            
+        }
     } while (choice == 's' || choice == 'S');
-
-    saveMatches();
 }
 
 void showmatchdata()
-{   
-    cout << "Los partidos se mostraran en el siguiente formato" << endl;
-    cout << "ID--Fecha--Hora--Local--Visitante--PuntosLocal--PuntosVisitantes" << endl;
-
-    if (contador == 0)
+{
+    loadMatches();
+    for (int i = 0; i < contador; i++)
     {
         
-        loadMatches();
+        cout << "ID: " << partido[i].ID << endl;
+        cout << "Fecha: " << partido[i].DATE << endl;
+        cout << "Hora: " << partido[i].HOUR << endl;
+        cout << "Equipo Local: " << partido[i].LOCAL << endl;
+        cout << "Equipo Visitante: " << partido[i].VISIT << endl;
+        cout << "Puntos del equipo local: " << partido[i].LOCALPOINTS << endl;
+        cout << "Puntos del equipo visitante: " << partido[i].VISITPOINTS << endl;
+        cout << "-----------------------------------" << endl;
     }
-
-    for (int i = 0; i < contador; ++i)
-    {
-        cout << partido[i].ID << "  ";
-        cout << partido[i].DATE << "  ";
-        cout << partido[i].HOUR << "   ";
-        cout << partido[i].LOCAL << "  ";
-        cout << partido[i].VISIT << "   ";
-        cout << partido[i].LOCALPOINTS << "  ";
-        cout << partido[i].VISITPOINTS << endl;
-    }
-
     contador = 0;
-    
 }
-
 
 void assisted()
 {
@@ -571,10 +596,11 @@ void registrer()
 
 void saveMatches()
 {
-    ofstream file("matches.txt");
+    ofstream file("matches.txt", ios::app); 
     if (file.is_open())
     {
-        for (int i = 0; i < contador; ++i)
+        int start = contador - 1; 
+        for (int i = start; i < contador; ++i) 
         {
             file << partido[i].ID << "," << partido[i].DATE << "," << partido[i].HOUR << ","
                  << partido[i].LOCAL << "," << partido[i].VISIT << ","
@@ -588,6 +614,7 @@ void saveMatches()
         cout << "No se pudo abrir el archivo para guardar los partidos." << endl;
     }
 }
+
 
 void loadMatches()
 {
