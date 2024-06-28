@@ -8,6 +8,9 @@
 
 using namespace std;
 
+int contador = 0;
+
+
 /*Funciones prototipo*/
 void student();
 void registrer();
@@ -159,6 +162,7 @@ void loadCounter()
 int menu()
 {
     int opt;
+    cout << "Reg " << contador << endl;
     cout << "Bienvenido al sistema de control de partidos de Baloncesto" << endl;
     cout << "!Vamos Jaguares!" << endl;
     cout << "1. Modo estudiante" << endl;
@@ -170,7 +174,7 @@ int menu()
 
 void principal()
 {
-    loadCounter();
+    //loadCounter();
     loadMatches();
     int opt;
     do
@@ -621,6 +625,7 @@ void loadMatches()
     ifstream file("matches.txt");
     if (file.is_open())
     {
+        contador = 0;
         string line;
         while (getline(file, line))
         {
@@ -660,9 +665,9 @@ void loadMatches()
         file.close();
         cout << "Partidos cargados exitosamente." << endl;
     }
-    else
-    {
-        cout << "No se pudo abrir el archivo para cargar los partidos." << endl;
-    }
+//     else
+//     {
+//         cout << "No se pudo abrir el archivo para cargar los partidos." << endl;
+//     }
 }
 

@@ -23,7 +23,6 @@ struct MATCHES{
     int VISITPOINTS;
 }partido[MAX];
 
-int contador = 0;
 
 
 
