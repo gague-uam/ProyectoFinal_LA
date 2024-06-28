@@ -449,7 +449,7 @@ void addmatch()
             }
         }
 
-        while (true)
+     while (true)
         {
             cout << "Puntos del equipo visitante: ";
             cin >> partido[contador].VISITPOINTS;
@@ -465,7 +465,6 @@ void addmatch()
             }
         }
 
-        cin >> partido[contador].VISITPOINTS;
 
         contador++;
 
@@ -480,9 +479,15 @@ void addmatch()
 
 void showmatchdata()
 {   
-    loadMatches();
     cout << "Los partidos se mostraran en el siguiente formato" << endl;
     cout << "ID--Fecha--Hora--Local--Visitante--PuntosLocal--PuntosVisitantes" << endl;
+
+    if (contador == 0)
+    {
+        
+        loadMatches();
+    }
+
     for (int i = 0; i < contador; ++i)
     {
         cout << partido[i].ID << "  ";
@@ -490,10 +495,14 @@ void showmatchdata()
         cout << partido[i].HOUR << "   ";
         cout << partido[i].LOCAL << "  ";
         cout << partido[i].VISIT << "   ";
-        cout << partido[i].LOCALPOINTS << "             ";
+        cout << partido[i].LOCALPOINTS << "  ";
         cout << partido[i].VISITPOINTS << endl;
     }
+
+    contador = 0;
+    
 }
+
 
 void assisted()
 {
@@ -502,6 +511,8 @@ void assisted()
     showmatchdata();
     cout << "Digite el id del partido al que fue: " << endl;
     cin >> id;
+
+
 }
 
 void registrerOptions()
